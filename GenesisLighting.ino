@@ -9,14 +9,46 @@ CRGB leds[NUM_LEDS];
 
 void setup() {
   FastLED.addLeds<NEOPIXEL, INPIN>(leds, NUM_LEDS);
-  Serial.begin(9600);
 }
 
 void loop() {
-  for (int i = 0; i < NUM_LEDS; i++) {
-    leds[i] = CRGB::Red;
-    if (checkButton(true)) break;
-    leds[i + 10] = CRGB::Blue;
-    FastLED.show();
+  checkButton();
+  switch(count) {
+    case 0:
+      noLight();
+      break;
+
+    case 1:
+      whiteLight();
+      break;
   }
+}
+
+void noLight() {
+  for(int i = 0; i < NUM_LEDS; i++) {
+    leds[i] = CRGB::Black;
+  }
+  FastLED.show();
+}
+
+void whiteLight() {
+for(int i = 0; i < NUM_LEDS; i++) {
+    leds[i] = CRGB::White;
+  }
+  FastLED.show();
+}
+
+boolean checkButton() {
+  mode = digitalRead(3);
+
+  if (mode == HIGH) {
+    noLight();
+    if (count == 1) {
+      count = 0;
+    } else {
+      count++;
+    }
+    delay(1000);
+    return true;
+  } else return false;
 }
