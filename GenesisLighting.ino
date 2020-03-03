@@ -15,6 +15,7 @@ void setup() {
 }
 
 void loop() {
+  Serial.println("Checking button...");
   checkButton();
   switch (mode) {
     case 1:
@@ -24,6 +25,11 @@ void loop() {
     case 2:
       whiteLight();
       break;
+
+    case 3:
+      kyleLight();
+      break;
+      
   }
 }
 
@@ -32,23 +38,21 @@ boolean checkButton() {
 
   if (buttonState != lastButtonState) {
     if (buttonState == HIGH) {
-      if (mode == 4) {
+      if (mode == 3) {
         mode = 1;
       } else {
         mode++;
       }
-      lastButtonState = buttonState;
+      
       Serial.print("Mode changed to: ");
       Serial.println(mode);
       delay(500);
-      return true;
     }
   }
-  else return false;
+  lastButtonState = buttonState;
 }
 
 void noLight() {
-  Serial.println("Turning off...");
   for (int i = 0; i < NUM_LEDS; i++) {
     leds[i] = CRGB::Black;
   }
@@ -56,9 +60,14 @@ void noLight() {
 }
 
 void whiteLight() {
-  Serial.println("Turning on white lights...");
   for (int i = 0; i < NUM_LEDS; i++) {
-    leds[i] = CRGB::White;
+    leds[i] = CRGB(100, 100, 100);
+  }
+  FastLED.show();
+}
+void kyleLight() {
+  for (int i = 0; i < NUM_LEDS; i++) {
+    leds[i] = CRGB(100, 0, 100);
   }
   FastLED.show();
 }
