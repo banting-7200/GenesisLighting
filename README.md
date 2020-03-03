@@ -4,9 +4,9 @@ Lighting system for [Genesis](https://github.com/banting-7200/Genesis).
 
 ## To Do (Software)
 
-- [ ] Get the button to toggle on/off
-- [ ] Implement various colour modes
-- [ ] Change through various colour modes using the button
+- [x] Get the button to toggle on/off
+- [x] Implement various colour modes
+- [x] Change through various colour modes using the button
 
 ## To Do (Hardware)
 
