@@ -1,5 +1,5 @@
 #include <FastLED.h>
-#define NUM_LEDS 89
+#define NUM_LEDS 100
 #define INPIN 3
 
 
@@ -32,6 +32,10 @@ void loop() {
       break;
 
     case 5:
+      eightLight();
+      break;
+
+    case 6:
       partyLight();
       break;
   }
@@ -43,7 +47,7 @@ boolean checkButton() {
   if (buttonState != lastButtonState) {
     if (buttonState == HIGH) {
       // Set max mode here
-      if (mode == 5) {
+      if (mode == 6) {
         mode = 1;
       } else {
         mode++;
