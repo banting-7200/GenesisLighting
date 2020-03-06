@@ -1,21 +1,19 @@
 #include <FastLED.h>
-#define NUM_LEDS 300
-#define INPIN 2
+#define NUM_LEDS 89
+#define INPIN 3
+
 
 int mode = 1;
 int lastButtonState = 0;
-int hue = 255;
 CRGB leds[NUM_LEDS];
 
 void setup() {
+  Serial.begin (9600);
   FastLED.addLeds<NEOPIXEL, INPIN>(leds, NUM_LEDS);
-  pinMode(3, INPUT);
-  Serial.begin(9600);
-  Serial.println("Arduino ready.");
+  pinMode(2, INPUT);
 }
 
 void loop() {
-  Serial.println("Checking button...");
   checkButton();
   switch (mode) {
     case 1:
@@ -27,47 +25,38 @@ void loop() {
       break;
 
     case 3:
-      kyleLight();
+      blueLight();
       break;
-      
+
+    case 4:
+      redLight();
+      break;
+
+    case 5:
+      eightLight();
+      break;
+
+    case 6:
+      partyLight();
+      break;
   }
 }
 
 boolean checkButton() {
-  int buttonState = digitalRead(3);
+  int buttonState = digitalRead(2);
 
   if (buttonState != lastButtonState) {
     if (buttonState == HIGH) {
-      if (mode == 3) {
+      if (mode == 6) {
         mode = 1;
       } else {
         mode++;
       }
-      
       Serial.print("Mode changed to: ");
       Serial.println(mode);
-      delay(500);
+      delay(400);
+      return true;
     }
   }
   lastButtonState = buttonState;
-}
-
-void noLight() {
-  for (int i = 0; i < NUM_LEDS; i++) {
-    leds[i] = CRGB::Black;
-  }
-  FastLED.show();
-}
-
-void whiteLight() {
-  for (int i = 0; i < NUM_LEDS; i++) {
-    leds[i] = CRGB(100, 100, 100);
-  }
-  FastLED.show();
-}
-void kyleLight() {
-  for (int i = 0; i < NUM_LEDS; i++) {
-    leds[i] = CRGB(100, 0, 100);
-  }
-  FastLED.show();
 }
