@@ -8,7 +8,6 @@ int lastButtonState = 0;
 CRGB leds[NUM_LEDS];
 
 void setup() {
-  Serial.begin (9600);
   FastLED.addLeds<NEOPIXEL, INPIN>(leds, NUM_LEDS);
   pinMode(2, INPUT);
 }
@@ -33,10 +32,6 @@ void loop() {
       break;
 
     case 5:
-      eightLight();
-      break;
-
-    case 6:
       partyLight();
       break;
   }
@@ -47,13 +42,12 @@ boolean checkButton() {
 
   if (buttonState != lastButtonState) {
     if (buttonState == HIGH) {
-      if (mode == 6) {
+      // Set max mode here
+      if (mode == 5) {
         mode = 1;
       } else {
         mode++;
       }
-      Serial.print("Mode changed to: ");
-      Serial.println(mode);
       delay(400);
       return true;
     }
